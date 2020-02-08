@@ -26,7 +26,7 @@ public class controller {
     }
 
     //suowo进行
-    @RequestMapping({"/hk/{suo}"})
+    @GetMapping({"/hk/{suo}"})
     public String Translation(@PathVariable String suo){
         mylist mylist = suoMapperl.getWo("/hk/"+suo);
         if(mylist == null){
