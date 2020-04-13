@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hw649.sources_share.mapper.StarMapper">
+        <select id="selectStarByPassage" resultType="int" parameterType="int">
+            select count(*) from sourceshare.star where passage = #{passage}
+        </select>
+
+        <select id="selectStarByAuth" parameterType="Star" resultType="Star">
+            select * from sourceshare.star where auth = #{auth} and passage = #{passage}
+        </select>
+
+        <delete id="deleteStar" parameterType="Star">
+            delete from sourceshare.star where passage = #{passage} and auth = #{auth}
+        </delete>
+
+        <insert id="insertStar" parameterType="Star" >
+            insert sourceshare.star(passage,auth)
+            values (#{passage},#{auth})
+        </insert>
+</mapper>

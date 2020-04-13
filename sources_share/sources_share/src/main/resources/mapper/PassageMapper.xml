@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hw649.sources_share.mapper.PassageMapper">
+
+    <select id="selectPassageById" parameterType="int" resultType="passage">
+        select * from sourceshare.passage where id = #{id}
+    </select>
+
+    <select id="selectPassageByTime"  resultType="passage">
+        select * from sourceshare.passage order by time desc
+    </select>
+    
+    <select id="selectPassageByPraise" resultType="passage">
+        select * from sourceshare.passage order by praise desc
+    </select>
+
+    <select id="selectPassageByAuth" parameterType="String" resultType="passage">
+        select * from sourceshare.passage where auth = #{auth} order by time desc
+    </select>
+    
+    <select id="selectPassageByTitle" parameterType="String" resultType="passage">
+        select * from sourceshare.passage where title like #{pattern}
+    </select>
+
+    <select id="selectPassageByLabel" parameterType="String" resultType="passage">
+        select * from sourceshare.passage where label = #{label}
+    </select>
+
+    <select id="selectReadNum" parameterType="int" resultType="int">
+        select readnum from sourceshare.passage where id = #{id}
+    </select>
+
+    <select id="selectLabelNum" parameterType="String" resultType="int">
+        select count(*) from sourceshare.passage where label = #{label}
+    </select>
+
+    <select id="selectStarPassage" parameterType="String" resultType="passage">
+        select * from sourceshare.passage where id in (
+        select passage from sourceshare.star where auth=#{auth}
+        )
+    </select>
+
+    <update id="addReadNum" parameterType="int">
+        update sourceshare.passage set readnum = readnum + 1 where id = #{id}
+    </update>
+
+    <update id="addStar" parameterType="int">
+        update sourceshare.passage set praise = praise + 1 where id = #{id}
+    </update>
+
+    <insert id="insertPassage" parameterType="Passage" >
+        insert sourceshare.passage(title,introduction,url,pwd,state,time,auth,praise,label,readnum)
+        values (#{title},#{introduction},#{url},#{pwd},#{state},#{time},#{auth},#{praise},#{label},#{readnum})
+    </insert>
+</mapper>
